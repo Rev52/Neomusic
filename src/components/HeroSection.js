@@ -2,7 +2,6 @@ import React from "react";
 import "./style/HeroSection.css";
 import heroImage from "../assets/images/Hero.png"; 
 import { Link } from "react-router-dom";
-// ganti nama file sesuai gambar orang yang kamu punya
 
 const HeroSection = () => {
   return (

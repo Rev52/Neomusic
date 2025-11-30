@@ -12,9 +12,6 @@ import ContactSection from "./components/ContactSection";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 
-// =========================
-// HALAMAN HOMEPAGE
-// =========================
 
 // =========================
 // HOMEPAGE (SCROLLABLE SECTIONS)
@@ -54,7 +51,6 @@ function HomePage() {
 function AppLayout() {
   const location = useLocation();
 
-  // daftar route yang tidak boleh menampilkan navbar
   const hideNavbarRoutes = ["/login", "/signup"];
 
   const shouldHideNavbar = hideNavbarRoutes.includes(
@@ -63,7 +59,6 @@ function AppLayout() {
 
   return (
     <>
-      {/* Tampilkan navbar hanya jika bukan halaman login/signup */}
       {!shouldHideNavbar && <Navbar />}
 
       <Routes>

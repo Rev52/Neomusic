@@ -1,7 +1,6 @@
 import React from "react";
 import "./style/TopMusic.css";
 
-// Import Images
 import apt from "../assets/images/APT.png";
 import dieWithASmile from "../assets/images/die with a smile.png";
 import havana from "../assets/images/Havana.png";
