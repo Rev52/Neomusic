@@ -1,0 +1,157 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+
+/* ========== CONTACT / FOOTER ========== */
+.contact-footer {
+  position: relative;
+  width: 100%;
+  background: radial-gradient(circle at center, #9c006f 0%, #2a001f 70%);
+  z-index: 9999;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* container footer */
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 20px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* FIX: semua sejajar atas */
+  flex-wrap: wrap;
+}
+
+/* prevent overflow horizontal */
+html, body {
+  overflow-x: hidden;
+}
+
+/* ======== BRAND LOGO ======== */
+.footer-brand img {
+  height: 140px;
+  object-fit: contain;
+}
+
+/* ======== LINKS ======== */
+.footer-links {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.footer-column a {
+  display: block;
+  color: #e4cbe0;
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition: 0.3s ease;
+}
+
+.footer-column a:hover {
+  color: #ff4fc3;
+}
+
+/* ======== RIGHT SIDE ======== */
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* rata kanan */
+  width: 320px; /* FIX: beri ruang agar tombol tidak menabrak */
+  text-align: right;
+}
+
+/* SIGNUP BUTTON */
+.signup-btn {
+  background-color: #6f285b;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 26px;
+  font-size: 14px;
+  color: white !important;
+  cursor: pointer;
+  transition: 0.3s ease;
+  white-space: nowrap;
+
+  margin-bottom: 20px; /* jarak aman */
+  margin-top: 13px;
+}
+
+.signup-btn:hover {
+  background-color: #ff4fc3;
+}
+
+/* description text */
+.footer-right p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #e0cfdc;
+  margin: 0 0 14px;
+}
+
+/* ======== SOCIAL ICONS ======== */
+.social-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  font-size: 18px;
+}
+
+.social-icons i {
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.social-icons i:hover {
+  color: #ff4fc3;
+}
+
+/* ======== BOTTOM AREA ======== */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 12px auto 0;
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  color: #ccc;
+  flex-wrap: wrap;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+
+  body {
+    padding-bottom: 260px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-right {
+    text-align: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}

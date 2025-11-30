@@ -1,0 +1,124 @@
+.music-library {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at center,   
+               #7A005A 0%,
+               #1B0036 50%,    
+               #1B0036 75%,   
+               #1B0036 100% );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 40px;
+}
+
+.library-container {
+  max-width: 1200px;
+  width: 100%;
+  color: white;
+}
+
+.library-text {
+  max-width: 700px;
+  margin-bottom: 60px;
+}
+
+.library-text h1 {
+  font-size: 60px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.library-text span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.library-text p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 500px;
+}
+
+.library-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.library-card {
+  width: 300px;
+  background: linear-gradient(180deg, #3a0f61, #2b003a);
+  padding: 18px;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.card-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+
+.library-card:hover {
+  transform: translateY(-10px);
+}
+
+.card-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+
+.play-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.library-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.songs-count {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .library-cards {
+    flex-direction: column;
+  }
+
+  .library-card {
+    width: 100%;
+  }
+}
+

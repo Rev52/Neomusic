@@ -1,0 +1,69 @@
+
+
+.about-section {
+  width: 100%;
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.about-container {
+  width: 80%;
+  max-width: 1100px;
+  backdrop-filter: blur(20px);
+  background: radial-gradient(circle at center, #9c006f 0%, #2a001f 70%);
+  border-radius: 20px;
+  padding: 50px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+.about-text h2 {
+  font-size: 56px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 18px;
+}
+
+.about-text p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 500px;
+}
+
+/* Gambar lebih kecil */
+.about-image img {
+  width: 300px;
+  height: auto;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Floating animation untuk headphone */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 30px;
+  }
+
+  .about-text h2 {
+    font-size: 38px;
+  }
+
+  .about-image img {
+    width: 220px;
+  }
+}

@@ -1,0 +1,109 @@
+.navbar-wrapper {
+  width: 100%;
+  z-index: 999;
+  background: linear-gradient(135deg, #2a0033, #450045, #2a0033);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-wrapper.sticky {
+  position: fixed;
+  top: 0;
+}
+
+.navbar-wrapper.normal {
+  position: relative;
+}
+
+
+.navbar {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 20px;   
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.navbar-logo img {
+  width: 140px;   /* sedikit lebih besar */
+  object-fit: contain;
+}
+
+/* Menu */
+
+  .navbar-menu {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  margin-left: 40px;
+}
+
+
+
+.navbar-menu a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.8);
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s ease-in-out;
+}
+
+.navbar-menu a:hover {
+  color: #ff5cd9;
+}
+
+/* Login + Signup */
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Login */
+.nav-login {
+  background: transparent;
+  border: none;
+  color: #d7c8ff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: color 0.2s ease;
+}
+
+.nav-login:hover {
+  color: #ffffff;
+}
+
+/* Signup */
+.nav-signup {
+  padding: 8px 20px;
+  border-radius: 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.nav-signup:hover {
+  background: #ff4bd6;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar {
+    padding: 0 14px;
+  }
+
+  .navbar-logo img {
+    width: 120px;
+  }
+}

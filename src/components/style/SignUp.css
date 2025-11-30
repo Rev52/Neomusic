@@ -1,0 +1,159 @@
+.signup-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+/* LEFT SIDE – EXACT 40% */
+.signup-left {
+  width: 53%;
+  height: 100%;
+  background-image: url("/src/assets/images/SignUpBackground.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Logo */
+.signup-logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.signup-logo img {
+  width: 220px;  /* tetap besar, sesuai permintaan */
+}
+
+/* RIGHT SIDE */
+.signup-right {
+  width: 57%;
+  height: 100%;
+  background: linear-gradient(180deg, #210027, #120016);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD (lebih ramping & ada ruang atas/bawah) */
+.signup-card {
+  width: 320px;            /* diperkecil */
+  padding: 28px 22px;      /* disesuaikan */
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  margin-top: 30px;        /* tambahan jarak */
+  margin-bottom: 30px;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65);
+  color: white;
+  text-align: center;
+}
+
+.signup-card h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.signup-card p {
+  font-size: 13px;
+  color: #bdbdbd;
+  margin-bottom: 18px;     /* diperpendek */
+}
+
+/* INPUT (lebih kecil agar card rapi) */
+.signup-card input {
+  width: 90%;
+  padding: 10px 10px;       /* dikurangi */
+  border-radius: 8px;
+  margin: 8px 0;            /* lebih rapat */
+
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  color: white;
+  font-size: 13px;          /* mengecil */
+  outline: none;
+}
+
+.signup-card input::placeholder {
+  color: #d4d4d4;
+}
+
+/* BUTTON */
+.btn-signup {
+  width: 90%;
+  padding: 11px;
+  margin-top: 12px;
+
+  background: linear-gradient(to right, #ff3cac, #784ba0, #2b86c5);
+  border-radius: 9px;
+  border: none;
+
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-signup:hover {
+  transform: scale(1.03);
+}
+
+/* Divider */
+.signup-divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;          /* diperkecil */
+}
+
+.signup-divider span {
+  flex: 1;
+  height: 1px;
+  background: #555;
+}
+
+.signup-divider p {
+  margin: 0 10px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+
+.social-icons img {
+  width: 40px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* Bottom text */
+.login-text {
+  margin-top: 3px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.login-text a {
+  color: #ff3cac;
+  text-decoration: none;
+}

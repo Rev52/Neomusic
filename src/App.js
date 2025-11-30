@@ -1,25 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
-function App() {
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import TopStation from "./components/TopStation";
+import MusicLibrary from "./components/MusicLibrary";
+import TopArtist from "./components/TopArtist";
+import TopMusic from "./components/TopMusic";
+import AboutSection from "./components/AboutSection";
+import ContactSection from "./components/ContactSection";
+
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+
+// =========================
+// HALAMAN HOMEPAGE
+// =========================
+
+// =========================
+// HOMEPAGE (SCROLLABLE SECTIONS)
+// =========================
+function HomePage() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* HOME */}
+      <section id="home">
+        <HeroSection />
+      </section>
+
+      {/* FEATURES */}
+      <section id="features">
+        <TopStation />
+        <MusicLibrary />
+        <TopArtist />
+        <TopMusic />
+      </section>
+
+      {/* ABOUT */}
+      <section id="about">
+        <AboutSection />
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact">
+        <ContactSection />
+      </section>
+    </>
   );
 }
 
-export default App;
+// =========================
+// WRAPPER UNTUK MENGATUR NAVBAR
+// =========================
+function AppLayout() {
+  const location = useLocation();
+
+  // daftar route yang tidak boleh menampilkan navbar
+  const hideNavbarRoutes = ["/login", "/signup"];
+
+  const shouldHideNavbar = hideNavbarRoutes.includes(
+    location.pathname.toLowerCase()
+  );
+
+  return (
+    <>
+      {/* Tampilkan navbar hanya jika bukan halaman login/signup */}
+      {!shouldHideNavbar && <Navbar />}
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Login" element={<Login />} />
+      </Routes>
+    </>
+  );
+}
+
+// =========================
+// APP
+// =========================
+export default function App() {
+  return (
+    <Router>
+      <AppLayout />
+    </Router>
+  );
+}
