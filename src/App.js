@@ -9,6 +9,7 @@ import TopMusic from "./components/TopMusic";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 
+import LoginAdmin from "./components/LoginAdmin";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Home from "./components/Home"; // ✅ HOME BARU SETELAH LOGIN
@@ -53,7 +54,7 @@ function HomePage() {
 function AppLayout() {
   const location = useLocation();
 
-  const hideNavbarRoutes = ["/login", "/signup", "/home"]; 
+  const hideNavbarRoutes = ["/login", "/signup", "/home","/loginadmin"]; 
   // Kalau kamu mau navbar disembunyikan juga di halaman Home setelah login
 
   const shouldHideNavbar = hideNavbarRoutes.includes(
@@ -72,6 +73,7 @@ function AppLayout() {
         {/* AUTH */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/loginadmin" element={<LoginAdmin />} />
 
         {/* ✅ HOME SETELAH LOGIN */}
         <Route path="/home" element={<Home />} />

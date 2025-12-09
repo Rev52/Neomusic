@@ -1,0 +1,284 @@
+/* ===============================
+   GLOBAL RESET + SMOOTH FEEL
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #0d0613;
+}
+
+/* ===============================
+   FULL PAGE PREMIUM BACKGROUND
+================================ */
+.admin-page {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  color: white;
+
+  /* Rich gradient */
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(199, 73, 255, 0.25),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(255, 90, 189, 0.2),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #2a0b2f 0%,
+      #3b103f 40%,
+      #6a1b74 70%,
+      #c13599 100%
+    );
+  overflow: hidden;
+}
+
+/* Glow blur blobs */
+.admin-page::before,
+.admin-page::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: rgba(186, 72, 255, 0.25);
+  filter: blur(140px);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.admin-page::before {
+  top: -120px;
+  left: -120px;
+}
+
+.admin-page::after {
+  bottom: -140px;
+  right: -140px;
+}
+
+/* ===============================
+   HEADER – PREMIUM LOOK
+================================ */
+.admin-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  backdrop-filter: blur(6px);
+}
+
+.admin-logo {
+  width: 160px;
+  height: auto;
+  filter: drop-shadow(0 0 12px rgba(255, 120, 255, 0.4));
+}
+
+.header-login-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 14px;
+  padding: 8px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.header-login-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(210, 94, 255, 0.25),
+    rgba(255, 94, 204, 0.25)
+  );
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ===============================
+   HERO CONTENT – GLASS CARD FEEL
+================================ */
+.admin-hero {
+
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 100px;
+  transform: translateY(-50%);
+  max-width: 520px;
+  background: none;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+
+.admin-hero h1 {
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e8c9ff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.admin-hero p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+}
+
+/* ===============================
+   BUTTON – PREMIUM GLOW
+================================ */
+.hero-login-btn {
+  padding: 14px 46px;
+  border: none;
+  border-radius: 16px;
+
+  background: linear-gradient(
+    135deg,
+    #d96bff 0%,
+    #a937e1 40%,
+    #ff4fd8 100%
+  );
+
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease;
+  box-shadow:
+    0 20px 45px rgba(217, 107, 255, 0.45),
+    0 0 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Glow hover */
+.hero-login-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 30px 80px rgba(255, 79, 216, 0.6),
+    0 0 20px rgba(255, 140, 255, 0.7);
+}
+
+/* Premium click */
+.hero-login-btn:active {
+  transform: scale(0.96);
+}
+
+/* ===============================
+   POPUP OVERLAY
+================================ */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 2, 15, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* ===============================
+   POPUP BOX
+================================ */
+.login-popup {
+  width: 360px;
+  padding: 40px 30px;
+  border-radius: 22px;
+
+  background: linear-gradient(
+    180deg,
+    #2d0b32,
+    #4a1453
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.login-popup h2 {
+  color: white;
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.login-popup p {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  margin-bottom: 26px;
+}
+
+/* ===============================
+   INPUT STYLE
+================================ */
+.login-popup input {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
+
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  color: white;
+  font-size: 13px;
+  outline: none;
+}
+
+.login-popup input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ===============================
+   POPUP LOGIN BUTTON
+================================ */
+.popup-login-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+
+  border: none;
+  border-radius: 12px;
+
+ background: linear-gradient(to right, #ff3cac, #784ba0, #2b86c5);
+
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.popup-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(209, 111, 255, 0.5);
+}
