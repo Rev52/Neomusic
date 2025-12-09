@@ -54,14 +54,7 @@ export default function Login() {
 
           <div className="signup-divider">
             <span></span>
-            <p>Or</p>
             <span></span>
-          </div>
-
-          <div className="social-icons">
-            <img className="icon-btn" src={GoogleLogo} alt="Google" />
-            <img className="icon-btn" src={FacebookLogo} alt="Facebook" />
-            <img className="icon-btn" src={AppleLogo} alt="Apple" />
           </div>
 
           <p className="login-text">

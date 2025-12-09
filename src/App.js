@@ -11,10 +11,11 @@ import ContactSection from "./components/ContactSection";
 
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+import Home from "./components/Home"; // ✅ HOME BARU SETELAH LOGIN
 
 
 // =========================
-// HOMEPAGE (SCROLLABLE SECTIONS)
+// HOMEPAGE (SEBELUM LOGIN)
 // =========================
 function HomePage() {
   return (
@@ -45,13 +46,15 @@ function HomePage() {
   );
 }
 
+
 // =========================
-// WRAPPER UNTUK MENGATUR NAVBAR
+// WRAPPER UNTUK NAVBAR
 // =========================
 function AppLayout() {
   const location = useLocation();
 
-  const hideNavbarRoutes = ["/login", "/signup"];
+  const hideNavbarRoutes = ["/login", "/signup", "/home"]; 
+  // Kalau kamu mau navbar disembunyikan juga di halaman Home setelah login
 
   const shouldHideNavbar = hideNavbarRoutes.includes(
     location.pathname.toLowerCase()
@@ -62,14 +65,22 @@ function AppLayout() {
       {!shouldHideNavbar && <Navbar />}
 
       <Routes>
+
+        {/* LANDING PAGE */}
         <Route path="/" element={<HomePage />} />
 
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/Login" element={<Login />} />
+        {/* AUTH */}
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* ✅ HOME SETELAH LOGIN */}
+        <Route path="/home" element={<Home />} />
+
       </Routes>
     </>
   );
 }
+
 
 // =========================
 // APP

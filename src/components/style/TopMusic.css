@@ -1,279 +1,154 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap');
 
-.topmusic-root {
+:root{
+  --bg-1: #9c006f;
+  --bg-2: #2a001f;
+  --glass: rgba(255,255,255,0.06);
+  --accent: #ff8ad0;
+}
+
+/* layout root */
+.tm-root {
   width: 100%;
   min-height: 100vh;
-  background: radial-gradient(circle at center, #9c006f 0%, #2a001f 70%);
+  background: radial-gradient(circle at center, var(--bg-1) 0%, var(--bg-2) 70%);
   display: flex;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
   padding: 40px 0;
 }
 
-/* GRID */
-.container {
-  width: 1400px;
+.tm-container {
+  width: 1200px;
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 60px;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+  align-items: start;
 }
 
 /* ---------------- SIDEBAR ---------------- */
-
-.sidebar {
-  background: linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(90,0,110,0.50) 100%);
-  padding: 25px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.sidebar-title {
-  font-size: 18px;
-  color: white;
-  margin-bottom: 20px;
-}
-
-.recent-list { list-style: none; padding: 0; margin: 0; }
-
-.recent-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.thumb {
-  width: 45px;
-  height: 45px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.thumb img { width: 100%; height: 100%; object-fit: cover; }
-
-.meta { flex: 1; margin-left: 10px; }
-
-.song-title { color: white; font-size: 14px; font-weight: 500; }
-.song-artist { color: #dedede; font-size: 11px; }
-
-.heart {
-  color: white;
-  font-size: 16px;
-  opacity: 0.8;
-}
-
-/* ---------------- MAIN CONTENT ---------------- */
-
-.title {
-  font-size: 64px;
-  font-weight: 900;
-  color: white;
-  text-align: center;
-}
-
-.subtitle {
-  color: #e7e7e7;
-  text-align: center;
-  font-size: 16px;
-  max-width: 600px;
-  margin: 0 auto 50px;
-  line-height: 1.6;
-}
-
-/* ALBUM CARDS */
-.albums {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-bottom: 70px;
-}
-
-.album-card { text-align: center; }
-
-.album-art {
-  width: 200px;
-  height: 200px;
+.tm-sidebar {
   border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(90,0,110,0.4));
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
 }
 
-.album-art img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.tm-recent-title {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
-.album-title {
-  color: white;
-  font-size: 16px;
-  margin-top: 15px;
+.tm-recent-list{ list-style:none; padding:0; margin:0; }
+
+.tm-recent-item{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:14px;
+  padding:8px;
+  border-radius:12px;
+}
+.tm-recent-item:hover { transform: translateX(6px); background: rgba(255,255,255,0.03); }
+
+.tm-thumb{ width:46px; height:46px; border-radius:10px; overflow:hidden; flex-shrink:0; }
+.tm-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.tm-meta { flex:1; min-width:0; }
+.tm-song { color:#fff; font-size:13px; font-weight:600; }
+.tm-artist { color:#e7d9e7; font-size:11px; margin-top:3px; }
+
+.tm-like{ color:#fff; opacity:.8; font-size:16px; }
+
+/* ---------------- MAIN ---------------- */
+.tm-main { display:block; }
+
+.tm-title {
+  text-align:center;
+  font-size:56px;
+  color: #fff;
+  font-weight:900;
+  margin:6px 0 6px;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
-.album-artist { color: #ccc; }
-
-/* ---------------- PLAYER BAR ---------------- */
-
-.player-bar {
-  background: rgba(255,255,255,0.10);
-  padding: 20px 35px;
-  border-radius: 30px;
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  align-items: center;
-  gap: 20px;
-  backdrop-filter: blur(12px);
-  width: 700px;
-  margin: 0 auto;
+.tm-sub {
+  text-align:center;
+  max-width:760px;
+  margin:0 auto 32px;
+  color:#e8dfe8;
+  line-height:1.6;
 }
 
-.player-left {
+/* albums */
+.tm-albums{
+  display:flex; gap:32px; justify-content:center; margin-bottom:36px;
+}
+
+.tm-album{
+  width:170px; text-align:center; cursor:pointer;
+  border-radius:14px; padding:12px; background: rgba(255,255,255,0.03); transition: transform .22s, box-shadow .22s, background .22s;
+}
+.tm-album:hover{ transform:translateY(-6px); background: rgba(255,255,255,0.06); box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+.tm-album.active{ background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); box-shadow: 0 14px 36px rgba(0,0,0,0.5); }
+
+.tm-album-art{ width:140px; height:140px; margin:0 auto; border-radius:12px; overflow:hidden; }
+.tm-album-art img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.tm-album-title{ margin-top:10px; color:#fff; font-weight:700; font-size:14px; }
+.tm-album-artist{ color:#d9cbd9; font-size:12px; margin-top:4px; }
+
+/* ---------------- PLAYER (rounded bar) ---------------- */
+.tm-player-wrapper { display:flex; justify-content:center; margin-top:24px; }
+
+.tm-player {
+  width: 780px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  padding: 14px 18px;
+  border-radius: 36px;
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.player-thumb {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.player-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.player-title { color: #fff; font-size: 15px; font-weight: 600; }
-.player-artist { color: #e0e0e0; font-size: 12px; }
-
-.controls {
-  display: flex;
-  justify-content: center;
   gap: 18px;
-}
-
-.ctrl {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: white;
-  opacity: .9;
-}
-
-.play { font-size: 28px; }
-
-.progress {
-  display: flex;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   align-items: center;
-  gap: 12px;
 }
 
-.progress .time {
-  color: #ddd;
-  font-size: 11px;
-}
+/* left: title/artist */
+.tm-left { flex: 1 1 280px; display:flex; align-items:center; gap:12px; padding-left:4px; }
+.tm-left-meta { display:flex; flex-direction:column; }
+.tm-left-title { color:#fff; font-weight:700; font-size:16px; }
+.tm-left-artist { color:#e6d6e6; font-size:12px; margin-top:4px; }
 
-.bar {
-  width: 200px;
-  height: 4px;
-  background: #2b2b2b;
-  border-radius: 2px;
-}
+/* center: controls */
+.tm-center { display:flex; gap:12px; justify-content:center; align-items:center; flex:0 0 220px; }
+.tm-btn { background:none; border:none; color:#fff; font-size:18px; cursor:pointer; padding:8px 12px; border-radius:8px; }
+.tm-btn:hover { background: rgba(255,255,255,0.04); transform: translateY(-2px); }
 
-.bar-fill {
-  width: 35%;
-  height: 100%;
-  background: #fff;
-  border-radius: 2px;
-}
+/* play larger */
+.tm-play { font-size:20px; padding:10px 14px; border-radius:10px; background: linear-gradient(90deg, #ff6fcf, #bb63f1); box-shadow: 0 6px 18px rgba(187,99,241,0.12); }
 
-.menu {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 20px;
-}
+/* right: progress + times + expand */
+.tm-right { display:flex; align-items:center; gap:12px; flex:0 0 360px; justify-content:flex-end; }
 
-/* ======== HOVER EFFECTS ======== */
+/* times */
+.tm-times { color:#e8e1e8; font-size:12px; width:40px; text-align:center; }
 
-/* Hover untuk sidebar list item */
-.recently-played-item {
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-.recently-played-item:hover {
-  background: rgba(255,255,255,0.07);
-  transform: translateX(6px);
-}
+/* progress bar area */
+.tm-progress { flex:1 1 auto; display:flex; align-items:center; padding:0 6px; }
+.tm-bar { flex:1; height:6px; background: rgba(255,255,255,0.12); border-radius:6px; position:relative; overflow:hidden; cursor:pointer; }
+.tm-bar-fill { height:100%; width:0; background: linear-gradient(90deg,#fff,#ffd4ff); border-radius:6px; transition: width .08s linear; box-shadow: 0 6px 18px rgba(255,200,255,0.04) inset; }
 
-/* Hover untuk ikon hati */
-.like-icon {
-  transition: transform 0.25s ease, color 0.25s ease;
-  cursor: pointer;
-}
-.like-icon:hover {
-  color: #ff4da6;
-  transform: scale(1.3);
-}
+/* expand icon */
+.tm-expand { background:none; border:none; color:#fff; font-size:16px; cursor:pointer; padding:6px 8px; border-radius:8px; }
+.tm-expand:hover { background: rgba(255,255,255,0.04); transform: translateY(-2px); }
 
-/* Hover untuk album card utama */
-.album-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
-}
-.album-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
-}
-
-/* Hover untuk player container */
-.music-player {
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-.music-player:hover {
-  background: rgba(255,255,255,0.08);
-}
-
-/* Hover untuk icon control buttons */
-.control-btn {
-  cursor: pointer;
-  transition: color 0.25s ease, transform 0.25s ease, background 0.25s ease;
-  border-radius: 50%;
-  padding: 8px;
-}
-.control-btn:hover {
-  background: rgba(255,255,255,0.2);
-  transform: scale(1.2);
-}
-
-/* Hover untuk progress bar */
-.progress-bar:hover::-webkit-slider-thumb {
-  transform: scale(1.4);
-}
-
-/* Hover brightness pada cover image */
-.album-card img,
-.recently-played-item img {
-  transition: filter 0.25s ease;
-}
-.album-card:hover img,
-.recently-played-item:hover img {
-  filter: brightness(1.2);
-}
-
-/* ====== Glass Effect Album Cards ====== */
-.album-card {
-  background: rgba(255, 255, 255, 0.10); /* transparansi seperti sidebar */
-  backdrop-filter: blur(18px); /* efek kaca */
-  border-radius: 16px;
-  padding: 14px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-}
-
-.album-card:hover {
-  background: rgba(255, 255, 255, 0.18);
-  transform: scale(1.05);
-  box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+/* responsive */
+@media (max-width: 980px) {
+  .tm-container { width: 95%; grid-template-columns: 1fr; gap: 20px; }
+  .tm-sidebar { order: 2; }
+  .tm-player { width: 100%; }
+  .tm-right { flex: 1 1 auto; }
+  .tm-center { flex: 1 1 auto; }
+  .tm-left { display:none; } /* hide left metadata on narrow screens */
 }

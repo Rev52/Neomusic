@@ -2,9 +2,9 @@ import React from "react";
 import "./style/TopArtist.css";
 
 import artist1 from "../assets/images/Baskara.jpg";
-import artist2 from "../assets/images/ariana grande.jpg";
+import artist2 from "../assets/images/camilla cabello.jpg";
 import artist3 from "../assets/images/howie day.jpg";
-import artist4 from "../assets/images/top artist 4.jpg";
+import artist4 from "../assets/images/Keyshia.jpg";
 import bruno from "../assets/images/bruno mars.png";
 
 const TopArtist = () => {
