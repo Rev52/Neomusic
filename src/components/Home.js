@@ -1,10 +1,9 @@
-// Home.js (updated)
-// Full file — copy-replace file Home.js mu dengan ini
 import React, { useRef, useState, useEffect } from "react";
 import "./style/Home.css";
 import { FiHome, FiSearch, FiGrid } from "react-icons/fi";
-import { FaPlay, FaPause } from "react-icons/fa"
-
+import { FaPlay, FaPause, FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom"; // Import navigasi
+import { FaVolumeUp } from "react-icons/fa"; // Import ikon volume
 
 /* ---- IMAGES ---- */
 import aptImg from "../assets/images/APT.png";
@@ -42,8 +41,11 @@ import BlindingImg from "../assets/images/blinding light.jpg";
 import SomeonelikeyouImg from "../assets/images/someone like you.jpg";
 import PerfectImg from "../assets/images/perfect.jpg";
 import HappierImg from "../assets/images/happier than ever.jpg";
-import UndressedImg from "../assets/images/undressed.jpeg";
+import UndressedImg from "../assets/images/undressed.jpeg"; 
+import ProfileImg from "../assets/images/img_profile.png";
 
+import undressedAudio from "../assets/audio/undressed.mp3";
+import ordinaryAudio from "../assets/audio/ordinary.mp3";
 
 /* ---- AUDIO ---- */
 import aptAudio from "../assets/audio/apt.mp3";
@@ -61,11 +63,9 @@ import perfectAudio from "../assets/audio/perfect.mp3";
 import shapeofyouAudio from "../assets/audio/shape of you.mp3";
 import blindingAudio from "../assets/audio/blinding lights.mp3";
 import happierAudio from "../assets/audio/happier than ever.mp3"; 
-import undressedAudio from "../assets/audio/undressed.mp3"; 
-import ordinaryAudio from "../assets/audio/ordinary.mp3";
-
 
 export default function Home() {
+  const navigate = useNavigate();
   /* --- PLAYLIST / DATA --- */
   const playlist = [
     { id: 0, title: "APT.", artist: "Bruno Mars", img: aptImg, src: aptAudio },
@@ -85,9 +85,6 @@ export default function Home() {
     { id: 14, title: "About You", artist: "The 1975", img: aboutYouImg, src: aboutYouAudio },
     { id: 15, title: "Love", artist: "Keyshia Cole", img: loveImg, src: loveAudio },
     { id: 16, title: "i <3 u", artist: "Boy Pablo", img: iHeartImg, src: iHeartAudio },
-
-    
-
   ];
 
   const topmusicList = [
@@ -95,60 +92,73 @@ export default function Home() {
     { id: 1, title: "Die With a Smile", artist: "Bruno Mars", img: dieImg, src: dieAudio },
     { id: 2, title: "Havana", artist: "Camila Cabello", img: havanaImg, src: havanaAudio },
     { id: 3, title: "Collide", artist: "Howie Day", img: collideImg, src: collideAudio },
-   
   ];
-
 
   const recommendList = [
-    { id: 14, img: aboutYouImg, title: "About You", artist: "The 1975", img: aboutYouImg, src: aboutYouAudio },
-    { id: 15, img: loveImg, title: "Love", artist: "Keyshia Cole", src: loveAudio },
-    { id: 16, img: iHeartImg, title: "i <3 u", artist: "Boy Pablo", src: iHeartAudio },
-    { id: 13, img: loseImg, title: "Lose", artist: "NIKI", src: loseAudio },
-    { id: 12, img: UndressedImg, title: "Undressed", artist: "Sombr", src: undressedAudio },
-    { id: 10, img: PerfectImg, title: "Perfect", artist: "Ed Sheeran", src: perfectAudio },
-    { id: 7, img: ShapeofyouImg, title: "Shape Of You", artist: "Ed Sheeran", src: shapeofyouAudio },
-    { id: 8, img: BlindingImg, title: "Blinding Light", artist: "The Weekend", src: blindingAudio },
-
-
+    { id: 14, title: "About You", artist: "The 1975", img: aboutYouImg, src: aboutYouAudio },
+    { id: 15, title: "Love", artist: "Keyshia Cole", img: loveImg, src: loveAudio },
+    { id: 16, title: "i <3 u", artist: "Boy Pablo", img: iHeartImg, src: iHeartAudio },
+    { id: 13, title: "Lose", artist: "NIKI", img: loseImg, src: loseAudio },
+    { id: 12, title: "Undressed", artist: "Sombr", img: UndressedImg, src: undressedAudio },
+    { id: 10, title: "Perfect", artist: "Ed Sheeran", img: PerfectImg, src: perfectAudio },
+    { id: 7, title: "Shape Of You", artist: "Ed Sheeran", img: ShapeofyouImg, src: shapeofyouAudio },
+    { id: 8, title: "Blinding Light", artist: "The Weekend", img: BlindingImg, src: blindingAudio },
   ];
 
-  // ✅ GABUNGAN SEMUA LAGU UNTUK PLAYER
-const allSongs = [
-  ...playlist,
-  ...recommendList.map((r, i) => ({
-    ...r,
-    id: playlist.length + i, // hindari tabrakan id
-  })),
-];
-
+  const allSongs = [
+    ...playlist,
+    ...recommendList.map((r, i) => ({
+      ...r,
+      id: playlist.length + i, 
+    })),
+  ];
 
   const recentList = [
-    { img: aptImg, title: "APT.", artist: "Bruno Mars" },
-    { img: dieImg, title: "Die With a Smile", artist: "Bruno Mars" },
-    { img: loseImg, title: "Lose", artist: "NIKI" },
-    { img: aboutYouImg, title: "About You", artist: "The 1975" },
+    { title: "APT.", artist: "Bruno Mars", img: aptImg },
+    { title: "Die With a Smile", artist: "Bruno Mars", img: dieImg },
+    { title: "Lose", artist: "NIKI", img: loseImg },
+    { title: "About You", artist: "The 1975", img: aboutYouImg },
   ];
 
   const libraryList = [
-    { img: likedsongimg, title: "Liked Songs", sub: "Playlist · 2 songs", gradient: "gradient-1" },
-    { img: topsongimg, title: "Top Songs - Global", sub: "Playlist · 2 songs", gradient: "gradient-2" },
-    { img: firstplaylistImg, title: "The First Playlist", sub: "Album · H.O.T", gradient: "gradient-3" },
-    { img: iyahImg, title: "IYah! - The 4th Album", sub: "Playlist · 2 songs", gradient: "gradient-4" },
+    { img: likedsongimg, title: "Liked Songs", sub: "Playlist · 2 songs", gradient: "gradient-1", path : "/Liked" },
+    { img: topsongimg, title: "Top Songs - Global", sub: "Playlist · 2 songs", gradient: "gradient-2", path : "/top-songs" },
+    { img: firstplaylistImg, title: "The First Playlist", sub: "Album · H.O.T", gradient: "gradient-3", path : "/playlist" },
+    { img: iyahImg, title: "IYah! - The 4th Album", sub: "Playlist · 2 songs", gradient: "gradient-4", path : "/iyah" },
   ];
 
   const sidebarList = [
-    { img: aptImg, title: "APT.", artist: "Bruno Mars", src: aptAudio },
-    { img: dieImg, title: "Die With a Smile", artist: "Bruno Mars", src: dieAudio },
-    { img: havanaImg, title: "Havana", artist: "Camila Cabello", src: havanaAudio },
-    { img: collideImg, title: "Collide", artist: "Howie Day", src: collideAudio },
-    { img: aboutYouImg, title: "About You", artist: "The 1975", src: aboutYouAudio },
-    { img: loveImg, title: "Love", artist: "Keyshia Cole", src: loveAudio },
-    { img: iHeartImg, title: "i <3 u", artist: "Boy Pablo", src: iHeartAudio },
-    { img: loseImg, title: "Lose", artist: "NIKI", src: loseAudio },
+    { title: "APT.", artist: "Bruno Mars", img: aptImg, src: aptAudio },
+    { title: "Die With a Smile", artist: "Bruno Mars", img: dieImg, src: dieAudio },
+    { title: "Havana", artist: "Camila Cabello", img: havanaImg, src: havanaAudio },
+    { title: "Collide", artist: "Howie Day", img: collideImg, src: collideAudio },
+    { title: "About You", artist: "The 1975", img: aboutYouImg, src: aboutYouAudio },
+    { title: "Love", artist: "Keyshia Cole", img: loveImg, src: loveAudio },
+    { title: "i <3 u", artist: "Boy Pablo", img: iHeartImg, src: iHeartAudio },
+    { title: "Lose", artist: "NIKI", img: loseImg, src: loseAudio },
   ];
 
+  const searchBanners = [
+    { img: OrdinaryImg, label: "12.345" },
+    { img: dieImg, label: "12.345" }
+  ];
 
-  /* --- AUDIO STATE --- */
+  const allArtists = [
+    { img: BrunoImg, name: "Bruno Mars" },
+    { img: CamillaImg, name: "Camilla cabello" },
+    { img: HowieImg, name: "Howie Day" },
+    { img: KeyshiaImg, name: "Keyshia Cole" },
+    { img: TopArtist5Img, name: "Lana Del Rey" },
+    { img: MattyImg, name: "Matty Healy" },
+    { img: Ariana2Img, name: "Ariana Grande" },
+    { img: NikiImg, name: "NIKI" },
+    { img: TaylorImg, name: "Taylor Swift" },
+    { img: EdSheeranImg, name: "Ed Sheeran" },
+    { img: CharlieImg, name: "Charlie Puth" },
+    { img: BillieImg, name: "Billie Eilish" },
+  ];
+
+  /* --- STATE --- */
   const audioRef = useRef(new Audio(allSongs[0].src));
   const [index, setIndex] = useState(0);
   const currentSong = allSongs[index] || playlist[index] || {};
@@ -158,32 +168,29 @@ const allSongs = [
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(1);
 
-  // love state length at least max of playlist/sidebar length
   const [lovedList, setLovedList] = useState(() => {
     const max = Math.max(sidebarList.length, playlist.length);
     return new Array(max).fill(false);
   });
 
-  /* --- VIEW STATE --- */
-  // views: "home", "artists", "topmusic", "reco", "recently"
-const [view, setView] = useState("home");
-const [recentlyPlayed, setRecentlyPlayed] = useState([]);
-const [showRecentlyPopup, setShowRecentlyPopup] = useState(false);
+  const [view, setView] = useState("home");
+  const [recentlyPlayed, setRecentlyPlayed] = useState(sidebarList);
+  const [showRecentlyPopup, setShowRecentlyPopup] = useState(false);
 
+  // Search State
+  const [searchQuery, setSearchQuery] = useState("");
+  const isSearching = searchQuery.trim().length > 0;
+  const [showRecentSearches, setShowRecentSearches] = useState(false);
+  const [recentSearches, setRecentSearches] = useState([]);
+  
+  const [showFullPlayer, setShowFullPlayer] = useState(false);
+  const openFullPlayer = () => setShowFullPlayer(true);
+  const closeFullPlayer = () => setShowFullPlayer(false);
 
+  const [pageMode, setPageMode] = useState("home"); 
+  const [selectedArtist, setSelectedArtist] = useState(null);
 
-
-// ===== SEARCH STATE =====
-const [searchQuery, setSearchQuery] = useState("");
-const isSearching = searchQuery.trim().length > 0;
-
-const [showRecentSearches, setShowRecentSearches] = useState(false);
-const [recentSearches, setRecentSearches] = useState([]);
-const [showSearchResult, setShowSearchResult] = useState(false);
-const [searchResults, setSearchResults] = useState([]);
-
-
-useEffect(() => {
+  useEffect(() => {
     const closePopup = (e) => {
       if (
         !e.target.closest(".recent-search-popup") &&
@@ -192,61 +199,21 @@ useEffect(() => {
         setShowRecentSearches(false);
       }
     };
-
     document.addEventListener("click", closePopup);
     return () => document.removeEventListener("click", closePopup);
   }, []);
 
-const [showFullPlayer, setShowFullPlayer] = useState(false);
-const openFullPlayer = () => {
-  setShowFullPlayer(true);
-};
+  const openArtistPage = (artist) => {
+    setSelectedArtist(artist);
+    setView("artistDetail");
+  }; 
 
-const closeFullPlayer = () => {
-  setShowFullPlayer(false);
-};
-
-const [pageMode, setPageMode] = useState("home"); // "home" | "search"
-const [selectedArtist, setSelectedArtist] = useState(null);
-
-const openArtistPage = (artist) => {
-  setSelectedArtist(artist);
-  setView("artistDetail");
-}; 
-
-const backToHomeFromArtist = () => {
-  setSelectedArtist(null);
-  setView("home");
-};
-
-  const showAllArtists = () => { 
-  setPageMode("home");     // keluar dari search
-  setView("artists");
-};
-
-  const showAllTopMusic = () => {
-  setPageMode("home");     // keluar dari search
-  setView("topmusic");
-};
-
+  const showAllArtists = () => { setPageMode("home"); setView("artists"); };
+  const showAllTopMusic = () => { setPageMode("home"); setView("topmusic"); };
   const showAllReco = () => setView("reco");
-  const showAllRecently = () => setView("recently");
-  const backToHome = () => setView("home");
+  const handleOpenRecentlyPopup = () => setShowRecentlyPopup(true);
 
-  /* --- DURATION LOADING --- */
-  // map src -> duration (seconds)
   const [durationsMap, setDurationsMap] = useState({});
-
-  // Helper: find src by title searching playlist & recommendList & sidebarList
-  const getSrcByTitle = (title) => {
-    const found =
-      playlist.find((p) => p.title === title) ||
-      recommendList.find((r) => r.title === title) ||
-      sidebarList.find((s) => s.title === title);
-    return found ? found.src : null;
-  };
-
-  // Load durations for all unique srcs used in playlist + recommendList + sidebarList
   useEffect(() => {
     const sources = new Set();
     playlist.forEach((p) => sources.add(p.src));
@@ -254,37 +221,23 @@ const backToHomeFromArtist = () => {
     sidebarList.forEach((s) => s.src && sources.add(s.src));
 
     const audioObjs = [];
-    const nextMap = {};
-
     sources.forEach((src) => {
       try {
         const a = new Audio(src);
         audioObjs.push(a);
         const onLoaded = () => {
-          nextMap[src] = a.duration || 0;
-          // set partial state so UI updates progressively
           setDurationsMap((prev) => ({ ...prev, [src]: a.duration || 0 }));
           a.removeEventListener("loadedmetadata", onLoaded);
         };
         a.addEventListener("loadedmetadata", onLoaded);
-        // try to load (some browsers may block until user gesture)
         a.load();
-      } catch (e) {
-        // ignore
-      }
+      } catch (e) {}
     });
-
     return () => {
-      audioObjs.forEach((a) => {
-        try {
-          a.pause();
-          a.src = "";
-        } catch (e) {}
-      });
+      audioObjs.forEach((a) => { try { a.pause(); a.src = ""; } catch (e) {} });
     };
-  }, []); // run once
+  }, []);
 
-  /* --- FORMATTING --- */
   const fmt = (s) => {
     if (!s || isNaN(s)) return "0:00";
     const m = Math.floor(s / 60);
@@ -292,14 +245,12 @@ const backToHomeFromArtist = () => {
     return `${m}:${sec.toString().padStart(2, "0")}`;
   };
 
-  /* --- AUDIO EFFECTS (main player) --- */
   useEffect(() => {
     const audio = audioRef.current;
     if (currentSong && currentSong.src) {
       audio.src = currentSong.src;
       try { audio.load(); } catch (e) {}
     } else {
-      // ensure audio has no src to avoid errors
       try { audio.pause(); } catch (e) {}
       audio.src = "";
     }
@@ -361,147 +312,116 @@ const backToHomeFromArtist = () => {
   };
 
   const onAlbumClick = (i) => {
-
-  const song = playlist[i];
-
-  setIndex(i);
-  setIsPlaying(true);
-
-  // Recently Played global
-  setRecentlyPlayed((prev) => {
-    const exists = prev.find((p) => p.id === song.id);
-    if (exists) {
-      // Pindahkan ke posisi paling atas
-      return [song, ...prev.filter((p) => p.id !== song.id)];
-    }
-    // Maksimal 10 item
-    return [song, ...prev].slice(0, 10);
-  });
-};
-
+    const song = playlist[i];
+    setIndex(i);
+    setIsPlaying(true);
+    setRecentlyPlayed((prev) => {
+      const exists = prev.find((p) => p.title === song.title);
+      if (exists) return [song, ...prev.filter((p) => p.title !== song.title)];
+      return [song, ...prev].slice(0, 10);
+    });
+  };
 
   const onSidebarClick = (i) => {
-  const s = sidebarList[i];
-  const found = playlist.findIndex((p) => p.title === s.title);
+    const s = sidebarList[i];
+    const found = playlist.findIndex((p) => p.title === s.title);
+    if (found !== -1) {
+      onAlbumClick(found);
+    }
+  };
 
-  if (found !== -1) {
-    onAlbumClick(found); // ✅ fungsi biar auto masuk recently
-  }
-};
-
-  // Click handler for recommended items (available across component)
   const onRecommendClick = (song) => {
     const idx = allSongs.findIndex(
       (s) => s.title === song.title && s.artist === song.artist
     );
-
     if (idx !== -1) {
       setIndex(idx);
       setIsPlaying(true);
-  
     }
   };
 
-
-  /* --- GRID DATA --- */
-  const searchBanners = [
-  { img: OrdinaryImg, label: "12.345" },
-  { img: dieImg, label: "12.345" }
-];
-
- const allArtists = [
-  { img: BrunoImg, name: "Bruno Mars" },
-  { img: CamillaImg, name: "Camilla cabello" },
-  { img: HowieImg, name: "Howie Day" },
-  { img: KeyshiaImg, name: "Keyshia Cole" },
-  { img: TopArtist5Img, name: "Lana Del Rey" },
-  { img: MattyImg, name: "Matty Healy" },
-  { img: Ariana2Img, name: "Ariana Grande" },
-  { img: NikiImg, name: "NIKI" },
-  { img: TaylorImg, name: "Taylor Swift" },
-  { img: EdSheeranImg, name: "Ed Sheeran" },
-  { img: CharlieImg, name: "Charlie Puth" },
-  { img: BillieImg, name: "Billie Eilish" },
-];
-
-
-  const allTopMusic = [
-    ...playlist.map(p => ({ img: p.img, title: p.title, artist: p.artist })),
-    // { img: aboutYouImg, title: "About You", artist: "The 1975" },
-    // { img: loveImg, title: "Love", artist: "Keyshia Cole" },
-    // { img: iHeartImg, title: "i <3 u", artist: "Boy Pablo" },
-    // { img: loseImg, title: "Lose", artist: "NIKI" },
-    // { img: havanaImg, title: "Havana", artist: "Camila Cabello" }
-  ];
-
-  const allRecommendationStation = [
-    ...recommendList.map(p => ({ img: p.img, title: p.title, artist: p.artist })),
-  ];
-
-  // ===== SEARCH FILTER RESULT =====
-const filteredResults = playlist.filter((song) =>
-  song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  song.artist.toLowerCase().includes(searchQuery.toLowerCase())
-);
-
+  const filteredResults = playlist.filter((song) =>
+    song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    song.artist.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="home-root">
+    <div className="unique-home-page">
 
+      {/* ===== POPUP RECENTLY PLAYED (OVERLAY) ===== */}
       {showRecentlyPopup && (
-  <div 
-    className="recently-popup-overlay"
-    onClick={() => setShowRecentlyPopup(false)}
-  >
-    <div 
-      className="recently-popup-card"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <div className="recently-popup-header">
-        <h3>Recently Played</h3>
-      </div>
-
-      <div className="recently-popup-list">
-        {recentlyPlayed.map((song, i) => (
-          <div
-            key={i}
-            className="recent-row"
-            onClick={() => {
-              const idx = playlist.findIndex((p) => p.id === song.id);
-              if (idx !== -1) {
-                onAlbumClick(idx);
-                setShowRecentlyPopup(false);
-              }
-            }}
+        <div 
+          className="recently-popup-overlay"
+          onClick={() => setShowRecentlyPopup(false)}
+        >
+          <div 
+            className="recently-popup-card"
+            onClick={(e) => e.stopPropagation()}
           >
-            <img className="recent-cover" src={song.img} alt={song.title} />
-
-            <div className="recent-meta">
-              <h4>{song.title}</h4>
-              <p>{song.artist}</p>
+            <div className="recently-popup-header">
+              <h3>Recently Played</h3>
+              <span 
+                className="close-popup-text" 
+                onClick={() => setShowRecentlyPopup(false)}
+                style={{ cursor: 'pointer', fontSize: '12px', color: '#ccc' }}
+              >
+                Close
+              </span>
             </div>
 
-            <span
-              className={`heart ${lovedList[i] ? "loved" : ""}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                setLovedList((prev) => {
-                  const next = [...prev];
-                  next[i] = !next[i];
-                  return next;
-                });
-              }}
-            >
-              {lovedList[i] ? "♥" : "♡"}
-            </span>
+            {/* SEARCH BAR DI DALAM POPUP */}
+            <div className="popup-search-bar">
+               <FiSearch className="popup-search-icon" />
+               <input type="text" placeholder="Search" className="popup-search-input" />
+            </div>
 
+            <div className="recently-popup-scroll">
+              {recentlyPlayed.map((song, i) => (
+                <div
+                  key={i}
+                  className="popup-row" /* <<-- INI KUNCINYA, BUKAN recent-row */
+                  onClick={() => {
+                    const idx = playlist.findIndex((p) => p.title === song.title);
+                    if (idx !== -1) {
+                      onAlbumClick(idx);
+                      setShowRecentlyPopup(false);
+                    }
+                  }}
+                >
+                  {/* Class 'popup-cover' ini yang akan membuat gambar kecil (50px) */}
+                  <img 
+                    className="popup-cover" 
+                    src={song.img} 
+                    alt={song.title} 
+                  />
+
+                  <div className="popup-meta">
+                    <h4>{song.title}</h4>
+                    <p>{song.artist}</p>
+                  </div>
+
+                  <span
+                    className={`heart-icon ${lovedList[i] ? "loved" : ""}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setLovedList((prev) => {
+                        const next = [...prev];
+                        next[i] = !next[i];
+                        return next;
+                      });
+                    }}
+                    style={{ marginLeft: 'auto', cursor: 'pointer' }}
+                  >
+                    {lovedList[i] ? "♥" : "♡"}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
 
+      {/* --- Main Content --- */}
       <div className="home-container">
 
         {/* LEFT */}
@@ -527,8 +447,6 @@ const filteredResults = playlist.filter((song) =>
                 <FiSearch size={20} /> Search
               </li>
 
-
-
               <li className="menu-item">
                 <FiGrid size={20} /> Explore
               </li>
@@ -547,9 +465,14 @@ const filteredResults = playlist.filter((song) =>
               <button className="lib-tab" onClick={showAllArtists} >Artist</button>
             </div>
 
-            <ul className="lib-list">
+           <ul className="lib-list">
               {libraryList.map((l, idx) => (
-                <li className="lib-item" key={idx}>
+                <li 
+                  className="lib-item" 
+                  key={idx}
+                  onClick={() => navigate(l.path)}  /* <--- TAMBAHKAN BARIS INI */
+                  style={{ cursor: "pointer" }}     /* <--- TAMBAHKAN BARIS INI */
+                >
                   <div className={`lib-thumb ${l.gradient}`}>
                     <img src={l.img} alt={l.title} />
                   </div>
@@ -569,485 +492,163 @@ const filteredResults = playlist.filter((song) =>
         <main className="center-col">
           <div className="center-card">
 
-            {/* SEARCH BAR */}
-            <div className="search-row">
-              {/* ===== GLOBAL SEARCH OVERLAY (HIGH PRIORITY) ===== */}
-              {isSearching && (
-                <div className="search-results-global">
-                  <h3 className="search-title">Search Results</h3>
+            {/* --- 1. SEARCH BAR & HEADER (Ditaruh Paling Atas) --- */}
+            {/* Tambahkan position: relative agar popup mengambang terhadap kotak ini */}
+            <div className="search-row" style={{ marginBottom: '20px', position: 'relative' }}>
+              
+              {/* Input Search */}
+              <input
+                className="search-input"
+                placeholder="Search by artist, songs or albums"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setShowRecentSearches(true)}
+              />
 
-                  {filteredResults.length === 0 ? (
-                    <p className="empty-search">No results found.</p>
+              {/* Bagian Kanan (Volume & Avatar) */}
+              <div className="search-right">
+                
+                {/* Tombol Volume (Ikon Speaker) */}
+                <button className="header-icon-btn">
+                  <FaVolumeUp />
+                </button>
+
+                {/* Foto Profil (Klik untuk ke Profile) */}
+                <div 
+                  className="user-avatar" 
+                  onClick={() => navigate('/Profile')} 
+                  style={{ cursor: 'pointer' }}
+                >
+                  <img src={ProfileImg} alt="pf" />
+                </div>
+
+              </div>
+
+              {/* === PINDAHKAN KODINGAN POPUP KE SINI (DI DALAM search-row) === */}
+              {showRecentSearches && searchQuery === "" && (
+                <div className="recent-search-popup">
+                  <h4>Recent Searches</h4>
+                  {recentSearches.length === 0 ? (
+                    <p className="empty-search">No recent searches</p>
                   ) : (
-                    <div className="music-cards grid-4">
-                      {filteredResults.map((song, i) => (
-                        <div
-                          key={i}
-                          className="music-card"
-                          onClick={() => {
-                            onAlbumClick(song.id);
-
-                            // simpan ke recent searches
-                            setRecentSearches((prev) => {
-                              const exists = prev.find((p) => p.id === song.id);
-                              if (exists) return prev;
-                              return [song, ...prev.slice(0, 4)];
-                            });
-
-                            setShowRecentSearches(false);
-                            setSearchQuery(""); // ⬅ clear search setelah klik
-                          }}
-                        >
-                          <img src={song.img} alt={song.title} />
-                          <div className="music-meta">
-                            <h4>{song.title}</h4>
-                            <p>{song.artist}</p>
-                          </div>
+                    recentSearches.map((song, i) => (
+                      <div
+                        key={i}
+                        className="recent-search-item"
+                        onClick={() => {
+                          setSearchQuery(song.title);
+                          setShowRecentSearches(false);
+                        }}
+                      >
+                        <img src={song.img} alt={song.title} />
+                        <div>
+                          <h5>{song.title}</h5>
+                          <p>{song.artist}</p>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))
                   )}
-                  
+                  <button className="clear-recent-btn" onClick={() => setRecentSearches([])}>
+                    Clear Recent
+                  </button>
                 </div>
               )}
+              {/* === AKHIR KODINGAN POPUP === */}
 
-
-
-              {showRecentSearches && searchQuery === "" && (
-              <div className="recent-search-popup">
-                <h4>Recent Searches</h4>
-
-                {recentSearches.length === 0 ? (
-                  <p className="empty-search">No recent searches</p>
-                ) : (
-                  recentSearches.map((song, i) => (
+            </div>
+            {/* --- 3. HASIL PENCARIAN (Ditaruh DI BAWAH Search Bar) --- */}
+            {isSearching && (
+              <div className="search-results-global">
+                <h3 className="search-title">Search Results</h3>
+                <div className="music-cards grid-4">
+                  {filteredResults.map((song, i) => (
                     <div
                       key={i}
-                      className="recent-search-item"
+                      className="music-card"
                       onClick={() => {
-                        setSearchQuery(song.title);
+                        onAlbumClick(song.id);
+                        setRecentSearches((prev) => {
+                          const exists = prev.find((p) => p.id === song.id);
+                          if (exists) return prev;
+                          return [song, ...prev.slice(0, 4)];
+                        });
                         setShowRecentSearches(false);
+                        setSearchQuery("");
                       }}
                     >
                       <img src={song.img} alt={song.title} />
-                      <div>
-                        <h5>{song.title}</h5>
+                      <div className="music-meta">
+                        <h4>{song.title}</h4>
                         <p>{song.artist}</p>
                       </div>
                     </div>
-                  ))
-                )}
-
-                <button
-        className="clear-recent-btn"
-        onClick={() => setRecentSearches([])}
-      >
-        Clear Recent
-      </button>
+                  ))}
+                </div>
               </div>
             )}
 
-              <input
-                  className="search-input"
-                  placeholder="Search by artist, songs or albums"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onFocus={() => setShowRecentSearches(true)}
-                />
-
-              <div className="search-right">
-                <button className="filter-btn">≋</button>
-                <div className="user-avatar">
-                  <img src={iyahImg} alt="pf" />
-                </div>
-              </div>
-            </div>
-
+            {/* --- 4. FULL PLAYER (Jika aktif) --- */}
             {showFullPlayer && (
-  <div className="full-player-page">
-    {/* BANNER */}
-    <div className="full-player-banner">
-      <img 
-        src={currentSong.img}
-        alt={currentSong.title}
-      />
-    </div>
-
-    {/* PLAYER CONTROL */}
-    <div className="full-player-controls">
-      <h3>{currentSong.title}</h3>
-      <p>{currentSong.artist}</p>
-
-      <div className="controls-row">
-        <button onClick={handlePrev}>⏮</button>
-        <button onClick={togglePlay}>
-          {isPlaying ? "⏸" : "▶"}
-        </button>
-        <button onClick={handleNext}>⏭</button>
-      </div>
-
-      <div className="progress-row" onClick={handleSeek}>
-        <span>{fmt(curTime)}</span>
-        <div className="bar">
-          <div className="fill" style={{ width: `${progress}%` }} />
-        </div>
-        <span>{fmt(duration)}</span>
-      </div>
-
-      <button className="close-player" onClick={closeFullPlayer}>
-        ✕ Close
-      </button>
-    </div>
-
-  </div>
-)}
-
-
-
-            {/* ===== SEARCH PAGE ===== */}
-{pageMode === "search" && (
-  <>
-    {/* BIG BANNERS */}
-    <div className="search-big-cards">
-      {searchBanners.map((b, i) => (
-        <div key={i} className="search-big-card">
-          <img src={b.img} alt="" />
-          <div className="search-badge">🎧 {b.label}</div>
-        </div>
-      ))}
-    </div>
-
-    
-
-
-    {/* TOP ARTIST */}
-    <section className="top-artist">
-      <div className="section-head">
-        <h2 className="section-title">Top Artist</h2>
-        <span className="show-all" onClick={showAllArtists}>Show All</span>
-      </div>
-
-      <div className="artist-list">
-        {allArtists.slice(0, 8).map((a, i) => (
-          <div key={i} className="artist-avatar">
-            <img src={a.img} alt={a.name} />
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* TOP MUSIC */}
-    <section className="top-music">
-      <div className="section-head">
-        <h2 className="section-title">Top Music</h2>
-        <span className="show-all" onClick={showAllTopMusic}>Show All</span>
-      </div>
-
-      <div className="music-cards grid-4">
-        {playlist.slice(0, 4).map((p, i) => (
-          <div key={i} className="music-card">
-            <img src={p.img} alt={p.title} />
-            <div className="music-meta">
-              <h4>{p.title}</h4>
-              <p>{p.artist}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  </>
-)}
-
-{/* ====== NORMAL CONTENT (HIDDEN WHEN SEARCHING) ====== */}
-{!isSearching && (
-  <>
-            {/* ====== SHOW ALL ARTISTS ====== */}
-            {view === "artists" && (
-              <section className="artists-all">
-                <div className="section-head">
-                  <h2 className="section-title">All Artists</h2>
+              <div className="full-player-page">
+                <div className="full-player-banner">
+                  <img src={currentSong.img} alt={currentSong.title} />
                 </div>
-
-                <div className="music-cards grid-4">
-                  {allArtists.map((artist, i) => (
-                <div
-                key={i}
-                className="music-card circle"
-                onClick={() => openArtistPage(artist)}
-                        >
-              <img src={artist.img} alt={artist.name} />
-              <div className="music-meta">
-                <h4>{artist.name}</h4>
-              </div>
-            </div>
-          ))}
-
-                </div>
-              </section>
-            )}
-
-          
-{/* ===== ARTIST DETAIL PAGE (UPDATED UI) ===== */}
-{view === "artistDetail" && selectedArtist && (
-  <section className="artist-detail-page">
-
-    {/* TOP PROFILE */}
-    <div className="artist-detail-top">
-      <img
-        src={selectedArtist.img}
-        alt={selectedArtist.name}
-        className="artist-detail-avatar"
-      />
-
-      <div className="artist-detail-info">
-        <small className="about-label">About the Artist</small>
-
-        <h2 className="artist-name">
-          ✅ {selectedArtist.name}
-        </h2>
-
-        <div className="artist-stats">
-          <span>4 Public Album</span>
-          <span>150M Followers</span>
-          <button className="follow-btn">Follow</button>
-        </div>
-
-        <p className="artist-bio">
-          Bruno Mars is a 15 time GRAMMY winning, best-selling global
-          artist. His debut Doo-Wops & Hooligans hit 15.5M sales,
-          and 24K Magic produced the #1 hit “That’s What I Like.”
-        </p>
-      </div>
-    </div>
-
-    <hr className="artist-divider" />
-
-    {/* MUSIC LIST */}
-    <div className="artist-music-section">
-      <h3>Music</h3>
-
-      {playlist
-        .filter(song => song.artist === selectedArtist.name)
-        .map((song, i) => (
-          <div
-            key={i}
-            className="artist-song-row"
-            onClick={() => onAlbumClick(song.id)}
-          >
-            <span className="song-index">{i + 1}</span>
-
-            <img src={song.img} alt={song.title} />
-
-            <div className="song-info">
-              <h4>{song.title}</h4>
-              <p>{fmt(durationsMap[song.src])}</p>
-            </div>
-
-            <div className="song-right">
-              <span className="song-plays">3,150,000,000</span>
-              <span
-                        className={`heart ${lovedList[i] ? "loved" : ""}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setLovedList((prev) => {
-                            const next = [...prev];
-                            next[i] = !next[i];
-                            return next;
-                          });
-                        }}
-                      >
-                        {lovedList[i] ? "♥" : "♡"}
-                      </span>
-            
-              <span className="menu-icon">⋮</span>
-            </div>
-          </div>
-        ))}
-    </div>
-
-  </section>
-)}
-
-
-
-            {/* ====== SHOW ALL TOP MUSIC ====== */}
-            {view === "topmusic" && (
-              <section className="topmusic-all">
-                <div className="section-head">
-                  <h2 className="section-title">All Top Music</h2>
-                </div>
-
-                <div className="music-cards grid-4">
-                  {allTopMusic.map((m, i) => (
-                    <div key={i} className="music-card" onClick={() => onAlbumClick(i)}>
-                      <img src={m.img} alt={`top-${i}`} />
-                      <div className="music-meta">
-                        <h4>{m.title}</h4>
-                        <p>{m.artist}</p>
-                      </div>
+                <div className="full-player-controls">
+                  <h3>{currentSong.title}</h3>
+                  <p>{currentSong.artist}</p>
+                  <div className="controls-row">
+                    <button onClick={handlePrev}>⏮</button>
+                    <button onClick={togglePlay}>
+                      {isPlaying ? "⏸" : "▶"}
+                    </button>
+                    <button onClick={handleNext}>⏭</button>
+                  </div>
+                  <div className="progress-row" onClick={handleSeek}>
+                    <span>{fmt(curTime)}</span>
+                    <div className="bar">
+                      <div className="fill" style={{ width: `${progress}%` }} />
                     </div>
-                  ))}
+                    <span>{fmt(duration)}</span>
+                  </div>
+                  <button className="close-player" onClick={closeFullPlayer}>
+                    ✕ Close
+                  </button>
                 </div>
-              </section>
-            )}
-
-            {/* ====== SHOW ALL RECOMMENDATION STATION ====== */}
-            {view === "reco" && (
-              <section className="reco-all">
-                <div className="section-head">
-                  <h2 className="section-title">All Recommendation Station</h2>
-                </div>
-
-                <div className="music-cards grid-4">
-                  {allRecommendationStation.map((r, i) => (
-                    <div key={i} className="music-card"
-                    onClick={() => onRecommendClick(r)}>
-                      <img src={r.img} alt={`rec-${i}`} />
-                      <div className="music-meta">
-                        <h4>{r.title}</h4>
-                        <p>{r.artist}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            
-
-            {/* ====== SHOW ALL RECENTLY PLAYED (CENTER) ====== */}
-{view === "recently" && (
-  <>
-
-    {/* ===== TOP ARTIST ===== */}
-    <section className="top-artist">
-      <div className="section-head">
-        <h2 className="section-title">Top Artist</h2>
-        <span className="show-all" onClick={showAllArtists}>Show All</span>
-      </div>
-
-      <div className="recently-artists">
-  {[
-    { img: BrunoImg, name: "Bruno Mars" },
-    { img: CamillaImg, name: "Camilla Cabello" },
-    { img: HowieImg, name: "Howie Day" },
-    { img: KeyshiaImg, name: "Keyshia Cole" },
-  ].map((a, i) => (
-    <div key={i} className="recently-artist-avatar">
-      <img src={a.img} alt={a.name} />
-      <p>{a.name}</p>
-    </div>
-  ))}
-</div>
-
-    </section>
-
-    {/* ===== RECENTLY PLAYED LIST ===== */}
-    <section className="recently-list-section">
-
-      <div className="section-head">
-        <h2 className="section-title">Recently Played</h2>
-      </div>
-
-      <div className="recently-list">
-
-        {recentlyPlayed.map((r, i) => {
-          // find src to show duration if available
-          const src = getSrcByTitle(r.title);
-          const dur = src && durationsMap[src] ? durationsMap[src] : null;
-          return (
-            <div
-              key={i}
-              className="recent-row"
-              onClick={() => {
-                // if track exists in playlist, play it; else play first playlist item
-                const idx = playlist.findIndex((p) => p.title === r.title);
-                if (idx !== -1) onAlbumClick(idx);
-              }}
-            >
-              {/* COVER */}
-              <img className="recent-cover" src={r.img} alt={r.title} />
-
-              {/* META */}
-              <div className="recent-meta">
-                <h4>{r.title}</h4>
-                <p>{r.artist}</p>
               </div>
+            )}
 
-              {/* DURATION */}
-              <span className="recent-duration">{dur ? fmt(dur) : "0:00"}</span>
-
-              {/* LOVE */}
-              <span
-                className={`heart ${lovedList[i] ? "loved" : ""}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLovedList((prev) => {
-                    const next = [...prev];
-                    next[i] = !next[i];
-                    return next;
-                  });
-                }}
-              >
-                {lovedList[i] ? "♥" : "♡"}
-              </span>
-              
-            </div>
-          );
-        })}
-  
-      </div>
-    </section>
-
-  </>
-)}
-
-            {/* ====== HOME PAGE ====== */}
-            {!showSearchResult && view === "home" && pageMode === "home" && !showFullPlayer && (
-
-
+            {/* --- 5. SEARCH PAGE MODE (Kategori Besar) --- */}
+            {pageMode === "search" && !isSearching && (
               <>
-                <div className="top-tabs">
-                  <button className="top-tab active">Playlist</button>
-                  <button className="top-tab">Albums</button>
-                  <button className="top-tab" onClick={showAllArtists} >Artist</button>
+                <div className="search-big-cards">
+                  {searchBanners.map((b, i) => (
+                    <div key={i} className="search-big-card">
+                      <img src={b.img} alt="" />
+                      <div className="search-badge">🎧 {b.label}</div>
+                    </div>
+                  ))}
                 </div>
-
-                {/* TOP ARTIST */}
                 <section className="top-artist">
                   <div className="section-head">
                     <h2 className="section-title">Top Artist</h2>
                     <span className="show-all" onClick={showAllArtists}>Show All</span>
                   </div>
-
                   <div className="artist-list">
-                    {[BrunoImg, CamillaImg, HowieImg, KeyshiaImg, TopArtist5Img, Ariana2Img, PassengerImg, BaskaraImg, ElihawsonImg].map((img, i) => (
-                      <div
-                      className="artist-avatar"
-                      onClick={() =>
-                        openArtistPage({
-                          name: "Bruno Mars",
-                          img: img
-                        })
-                      }
-                    >
-                      <img src={img} alt={`ta-${i}`} />
-                    </div>
-
+                    {allArtists.map((a, i) => (
+                      <div key={i} className="artist-avatar">
+                        <img src={a.img} alt={a.name} />
+                      </div>
                     ))}
                   </div>
                 </section>
-
-                {/* TOP MUSIC */}
                 <section className="top-music">
                   <div className="section-head">
                     <h2 className="section-title">Top Music</h2>
                     <span className="show-all" onClick={showAllTopMusic}>Show All</span>
                   </div>
-
                   <div className="music-cards grid-4">
-                    {topmusicList.map((p, i) => (
-                      <div key={i} className="music-card" onClick={() => onAlbumClick(i)}>
+                    {playlist.slice(0, 4).map((p, i) => (
+                      <div key={i} className="music-card">
                         <img src={p.img} alt={p.title} />
                         <div className="music-meta">
                           <h4>{p.title}</h4>
@@ -1057,187 +658,287 @@ const filteredResults = playlist.filter((song) =>
                     ))}
                   </div>
                 </section>
-
-                {/* RECOMMENDATION STATION */}
-                <section className="recommended">
-                  <div className="section-head">
-                    <h2 className="section-title">Recommended Station</h2>
-                    <span className="show-all" onClick={showAllReco}>Show All</span>
-                  </div>
-
-                  <div className="music-cards grid-4">
-                    {recommendList.slice(0,4).map((r, i) => (
-                      <div key={i} className="music-card"
-                      onClick={() => onRecommendClick(r)}
-                      >
-                        <img src={r.img} alt={r.title} />
-                        <div className="music-meta">
-                          <h4>{r.title}</h4>
-                          <p>{r.artist}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                {/* RECENTLY (small) */}
-                <section className="recently">
-                  <div className="section-head">
-                    <h2 className="section-title">Recently Played</h2>
-                    <span className="show-all" onClick={showAllRecently}>Show All</span>
-                  </div>
-
-                  <div className="music-cards grid-4">
-                    {recentList.map((r, i) => (
-                      <div key={i} className="music-card">
-                        <img src={r.img} alt={r.title} />
-                        <div className="music-meta">
-                          <h4>{r.title}</h4>
-                          <p>{r.artist}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
               </>
             )}
-  </>
-)}
 
+            {/* --- 6. NORMAL CONTENT (Jika tidak sedang search) --- */}
+            {!isSearching && (
+              <>
+                {view === "artists" && (
+                  <section className="artists-all">
+                    <div className="section-head">
+                      <h2 className="section-title">All Artists</h2>
+                    </div>
+                    <div className="music-cards grid-4">
+                      {allArtists.map((artist, i) => (
+                        <div
+                          key={i}
+                          className="music-card circle"
+                          onClick={() => openArtistPage(artist)}
+                        >
+                          <img src={artist.img} alt={artist.name} />
+                          <div className="music-meta">
+                            <h4>{artist.name}</h4>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {/* ARTIST DETAIL */}
+                {view === "artistDetail" && selectedArtist && (
+                  <section className="artist-detail-page">
+                    <div className="artist-detail-top">
+                      <img
+                        src={selectedArtist.img}
+                        alt={selectedArtist.name}
+                        className="artist-detail-avatar"
+                      />
+                      <div className="artist-detail-info">
+                        <small className="about-label">About the Artist</small>
+                        <h2 className="artist-name">✅ {selectedArtist.name}</h2>
+                        <div className="artist-stats">
+                          <span>4 Public Album</span>
+                          <span>150M Followers</span>
+                          <button className="follow-btn">Follow</button>
+                        </div>
+                        <p className="artist-bio">
+                          Bruno Mars is a 15 time GRAMMY winning, best-selling global artist.
+                        </p>
+                      </div>
+                    </div>
+                    <hr className="artist-divider" />
+                    <div className="artist-music-section">
+                      <h3>Music</h3>
+                      {playlist
+                        .filter(song => song.artist === selectedArtist.name)
+                        .map((song, i) => (
+                          <div
+                            key={i}
+                            className="artist-song-row"
+                            onClick={() => onAlbumClick(song.id)}
+                          >
+                            <span className="song-index">{i + 1}</span>
+                            <img src={song.img} alt={song.title} />
+                            <div className="song-info">
+                              <h4>{song.title}</h4>
+                              <p>{fmt(durationsMap[song.src])}</p>
+                            </div>
+                            <div className="song-right">
+                              <span className="song-plays">3.1B</span>
+                              <span className="menu-icon">⋮</span>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </section>
+                )}
+
+                {view === "topmusic" && (
+                  <section className="topmusic-all">
+                    <div className="section-head">
+                      <h2 className="section-title">All Top Music</h2>
+                    </div>
+                    <div className="music-cards grid-4">
+                      {playlist.map((m, i) => (
+                        <div
+                          key={i}
+                          className="music-card"
+                          onClick={() => onAlbumClick(i)}
+                        >
+                          <img src={m.img} alt={i} />
+                          <div className="music-meta">
+                            <h4>{m.title}</h4>
+                            <p>{m.artist}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {view === "reco" && (
+                  <section className="reco-all">
+                    <div className="section-head">
+                      <h2 className="section-title">All Recommendation</h2>
+                    </div>
+                    <div className="music-cards grid-4">
+                      {recommendList.map((r, i) => (
+                        <div
+                          key={i}
+                          className="music-card"
+                          onClick={() => onRecommendClick(r)}
+                        >
+                          <img src={r.img} alt={i} />
+                          <div className="music-meta">
+                            <h4>{r.title}</h4>
+                            <p>{r.artist}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {/* HOME DEFAULT */}
+                {view === "home" && pageMode === "home" && !showFullPlayer && (
+                  <>
+                    <div className="top-tabs">
+                      <button className="top-tab active">Playlist</button>
+                      <button className="top-tab">Albums</button>
+                      <button className="top-tab" onClick={showAllArtists} >Artist</button>
+                    </div>
+
+                    <section className="top-artist">
+                      <div className="section-head">
+                        <h2 className="section-title">Top Artist</h2>
+                        <span className="show-all" onClick={showAllArtists}>Show All</span>
+                      </div>
+                      <div className="artist-list">
+                        {allArtists.map((a, i) => (
+                          <div
+                            key={i}
+                            className="artist-avatar"
+                            onClick={() => openArtistPage(a)}
+                          >
+                            <img src={a.img} alt={a.name} />
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section className="top-music">
+                      <div className="section-head">
+                        <h2 className="section-title">Top Music</h2>
+                        <span className="show-all" onClick={showAllTopMusic}>Show All</span>
+                      </div>
+                      <div className="music-cards grid-4">
+                        {topmusicList.map((p, i) => (
+                          <div
+                            key={i}
+                            className="music-card"
+                            onClick={() => onAlbumClick(i)}
+                          >
+                            <img src={p.img} alt={p.title} />
+                            <div className="music-meta">
+                              <h4>{p.title}</h4>
+                              <p>{p.artist}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section className="recommended">
+                      <div className="section-head">
+                        <h2 className="section-title">Recommended Station</h2>
+                        <span className="show-all" onClick={showAllReco}>Show All</span>
+                      </div>
+                      <div className="music-cards grid-4">
+                        {recommendList.slice(0,4).map((r, i) => (
+                          <div
+                            key={i}
+                            className="music-card"
+                            onClick={() => onRecommendClick(r)}
+                          >
+                            <img src={r.img} alt={r.title} />
+                            <div className="music-meta">
+                              <h4>{r.title}</h4>
+                              <p>{r.artist}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section className="recently">
+                      <div className="section-head">
+                        <h2 className="section-title">Recently Played</h2>
+                        <span className="show-all" onClick={handleOpenRecentlyPopup}>Show All</span>
+                      </div>
+                      <div className="music-cards grid-4">
+                        {recentList.map((r, i) => (
+                          <div key={i} className="music-card">
+                            <img src={r.img} alt={r.title} />
+                            <div className="music-meta">
+                              <h4>{r.title}</h4>
+                              <p>{r.artist}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  </>
+                )}
+              </>
+            )}
           </div>
         </main>
 
         {/* RIGHT */}
-        <aside className={`right-col`}>
-          <div className={`right-card ${view === "recently" ? "recently-active" : ""}`}>
-            {/* When view is "recently", show big now-playing area + recently list */}
-            {view === "recently" ? (
-              <>
-                <div className="right-recently-header">
-      <h3>Now Played</h3>
-    </div>
-
-    <img
-      className="right-recently-cover"
-      src={currentSong.img}
-      alt="now playing"
-    />
-
-    <div className="right-recently-meta">
-  <div className="right-recently-text">
-    <h4>{currentSong.title}</h4>
-    <p>{currentSong.artist}</p>
-  </div>
-
-  <button
-    className="right-recently-play"
-    onClick={togglePlay}
-  >
-    {isPlaying ? <FaPause /> : <FaPlay />}
-  </button>
-</div>
-
-<div className="right-divider"></div>
-
-
-  
-                <div className="right-subhead">
-                  <h4>Recently Played</h4>
-                </div>
-
-                <ul className="right-list">
-                  {recentlyPlayed.map((s, i) => (
-                    <li key={i} className="right-item" onClick={() => onSidebarClick(i)}>
-                      <img src={s.img} alt={s.title} />
-                      <div>
-                        <p>{s.title}</p>
-                        <small>{s.artist}</small>
-                      </div>
-
-                      <span
-                        className={`heart ${lovedList[i] ? "loved" : ""}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setLovedList((prev) => {
-                            const next = [...prev];
-                            next[i] = !next[i];
-                            return next;
-                          });
-                        }}
-                      >
-                        {lovedList[i] ? "♥" : "♡"}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <>
-                <div className="right-header">
-                  <h3>Recently Played</h3>
-                  <span className="see-all"
-                   onClick={() => setShowRecentlyPopup(true)}
-                  >See All</span>
-                </div>
-
-                <ul className="right-list">
-                  {recentlyPlayed.slice(0, 6).map((s, i) => (
-                    <li key={i} className="right-item" onClick={() => onSidebarClick(i)}>
-                      <img src={s.img} alt={s.title} />
-                      <div>
-                        <p>{s.title}</p>
-                        <small>{s.artist}</small>
-                      </div>
-
-                      <span
-                        className={`heart ${lovedList[i] ? "loved" : ""}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setLovedList((prev) => {
-                            const next = [...prev];
-                            next[i] = !next[i];
-                            return next;
-                          });
-                        }}
-                      >
-                        {lovedList[i] ? "♥" : "♡"}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
+        <aside className="right-col">
+          <div className="right-card">
+            <div className="right-header">
+              <h3>Recently Played</h3>
+              <span className="see-all" onClick={handleOpenRecentlyPopup}>See All</span>
+            </div>
+            <ul className="right-list">
+              {recentlyPlayed.slice(0, 6).map((s, i) => (
+                <li
+                  key={i}
+                  className="right-item"
+                  onClick={() => onSidebarClick(i)}
+                >
+                  <img src={s.img} alt={s.title} />
+                  <div>
+                    <p>{s.title}</p>
+                    <small>{s.artist}</small>
+                  </div>
+                  <span
+                    className={`heart ${lovedList[i] ? "loved" : ""}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setLovedList((prev) => {
+                        const next = [...prev];
+                        next[i] = !next[i];
+                        return next;
+                      });
+                    }}
+                  >
+                    {lovedList[i] ? "♥" : "♡"}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </aside>
 
       </div>
 
-      {/* BOTTOM PLAYER: only show when NOT in 'recently' view */}
+      {/* BOTTOM PLAYER */}
       {view !== "recently" && !showFullPlayer && (
-
         <div className="home-player-wrap">
           <div className="home-player">
-
             <div className="hp-left">
-            <img 
-              src={allSongs[index].img} 
-              alt="" 
-              onClick={openFullPlayer}
-              style={{ cursor: "pointer" }}
-            />
-
-              <div>
+              <img
+                src={allSongs[index].img}
+                alt=""
+                onClick={openFullPlayer}
+                style={{ cursor: "pointer" }}
+              />
+              <div className="hp-meta">
                 <h4>{allSongs[index].title}</h4>
                 <p>{allSongs[index].artist}</p>
               </div>
             </div>
-
             <div className="hp-controls">
               <button onClick={handlePrev}>⏮</button>
-              <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
+              <button onClick={togglePlay}>
+                {isPlaying ? "⏸" : "▶"}
+              </button>
               <button onClick={handleNext}>⏭</button>
             </div>
-
             <div className="hp-progress" onClick={handleSeek}>
               <span>{fmt(curTime)}</span>
               <div className="bar">
@@ -1245,7 +946,6 @@ const filteredResults = playlist.filter((song) =>
               </div>
               <span>{fmt(duration)}</span>
             </div>
-
             <div className="hp-right">
               <input
                 type="range"
@@ -1256,13 +956,9 @@ const filteredResults = playlist.filter((song) =>
                 onChange={(e) => changeVolume(e.target.value)}
               />
             </div>
-
           </div>
         </div>
       )}
     </div>
   );
 }
- 
-
- 
