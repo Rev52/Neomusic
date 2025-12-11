@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6805f18946cda19a1dbad666da431d092434df1a
 import React, { useRef, useState, useEffect } from "react";
 import "./style/Home.css";
 import { FiHome, FiSearch, FiGrid } from "react-icons/fi";
@@ -12,7 +16,7 @@ import havanaImg from "../assets/images/Havana.png";
 import collideImg from "../assets/images/Collide.jpg";
 import aboutYouImg from "../assets/images/about you.jpg";
 import loveImg from "../assets/images/Love.jpg";
-import iHeartImg from "../assets/images/i heart you.jpg";
+import iHeartImg from "../assets/images/i heart you.jpg"; 
 import loseImg from "../assets/images/lose.jpg";
 import likedsongimg from "../assets/images/liked_songs.png";
 import topsongimg from "../assets/images/top_songs.png";
@@ -105,6 +109,7 @@ export default function Home() {
     { id: 8, title: "Blinding Light", artist: "The Weekend", img: BlindingImg, src: blindingAudio },
   ];
 
+<<<<<<< HEAD
   const allSongs = [
     ...playlist,
     ...recommendList.map((r, i) => ({
@@ -112,6 +117,16 @@ export default function Home() {
       id: playlist.length + i, 
     })),
   ];
+=======
+const allSongs = [
+  ...playlist,
+  ...recommendList.map((r, i) => ({
+    ...r,
+    id: playlist.length + i, 
+  })),
+];
+
+>>>>>>> 6805f18946cda19a1dbad666da431d092434df1a
 
   const recentList = [
     { title: "APT.", artist: "Bruno Mars", img: aptImg },
@@ -230,6 +245,10 @@ export default function Home() {
           a.removeEventListener("loadedmetadata", onLoaded);
         };
         a.addEventListener("loadedmetadata", onLoaded);
+<<<<<<< HEAD
+=======
+        // try to load 
+>>>>>>> 6805f18946cda19a1dbad666da431d092434df1a
         a.load();
       } catch (e) {}
     });
@@ -330,6 +349,15 @@ export default function Home() {
     }
   };
 
+<<<<<<< HEAD
+=======
+  if (found !== -1) {
+    onAlbumClick(found); //  fungsi auto masuk recently
+  }
+};
+
+  // Click handler for recommended items (available across component)
+>>>>>>> 6805f18946cda19a1dbad666da431d092434df1a
   const onRecommendClick = (song) => {
     const idx = allSongs.findIndex(
       (s) => s.title === song.title && s.artist === song.artist
@@ -340,10 +368,50 @@ export default function Home() {
     }
   };
 
+<<<<<<< HEAD
   const filteredResults = playlist.filter((song) =>
     song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     song.artist.toLowerCase().includes(searchQuery.toLowerCase())
   );
+=======
+
+  /* --- GRID DATA --- */
+  const searchBanners = [
+  { img: OrdinaryImg, label: "12.345" },
+  { img: dieImg, label: "12.345" }
+];
+
+ const allArtists = [
+  { img: BrunoImg, name: "Bruno Mars" },
+  { img: CamillaImg, name: "Camilla cabello" },
+  { img: HowieImg, name: "Howie Day" },
+  { img: KeyshiaImg, name: "Keyshia Cole" },
+  { img: TopArtist5Img, name: "Lana Del Rey" },
+  { img: MattyImg, name: "Matty Healy" },
+  { img: Ariana2Img, name: "Ariana Grande" },
+  { img: NikiImg, name: "NIKI" },
+  { img: TaylorImg, name: "Taylor Swift" },
+  { img: EdSheeranImg, name: "Ed Sheeran" },
+  { img: CharlieImg, name: "Charlie Puth" },
+  { img: BillieImg, name: "Billie Eilish" },
+];
+
+
+  const allTopMusic = [
+    ...playlist.map(p => ({ img: p.img, title: p.title, artist: p.artist })),
+  ];
+
+  const allRecommendationStation = [
+    ...recommendList.map(p => ({ img: p.img, title: p.title, artist: p.artist })),
+  ];
+
+  // ===== SEARCH FILTER RESULT =====
+const filteredResults = playlist.filter((song) =>
+  song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  song.artist.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+>>>>>>> 6805f18946cda19a1dbad666da431d092434df1a
 
   return (
     <div className="unique-home-page">
@@ -492,6 +560,7 @@ export default function Home() {
         <main className="center-col">
           <div className="center-card">
 
+<<<<<<< HEAD
             {/* --- 1. SEARCH BAR & HEADER (Ditaruh Paling Atas) --- */}
             {/* Tambahkan position: relative agar popup mengambang terhadap kotak ini */}
             <div className="search-row" style={{ marginBottom: '20px', position: 'relative' }}>
@@ -504,6 +573,14 @@ export default function Home() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setShowRecentSearches(true)}
               />
+=======
+            {/* SEARCH BAR */}
+            <div className="search-row">
+              {/* ===== GLOBAL SEARCH OVERLAY (HIGH PRIORITY) ===== */}
+              {isSearching && (
+                <div className="search-result-global">
+                  <h3 className="search-title">Search Results</h3>
+>>>>>>> 6805f18946cda19a1dbad666da431d092434df1a
 
               {/* Bagian Kanan (Volume & Avatar) */}
               <div className="search-right">
